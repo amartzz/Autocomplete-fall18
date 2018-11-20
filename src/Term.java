@@ -87,6 +87,12 @@ public class Term implements Comparable<Term> {
 		 */
 		public int compare(Term v, Term w) {
 			// DONE: Implement compare, reminder:comparing v and w
+
+			//both words less than prefix size
+			if (v.getWord().length() < myPrefixSize && w.getWord().length() < myPrefixSize) {
+				//return 0 if v==w
+				if(v.equals(w)) return 0;
+			}
 			
 			if(v.getWord().length() < myPrefixSize) {
 				for(int i=0; i< v.getWord().length(); i++) {
@@ -97,11 +103,6 @@ public class Term implements Comparable<Term> {
 				return -1;
 			}
 			
-			//both words less than prefix size
-			if (v.getWord().length() < myPrefixSize && w.getWord().length() < myPrefixSize) {
-				//return 0 if v==w
-				if(v.equals(w)) return 0;
-			}
 			if (w.getWord().length() < myPrefixSize) {
 				for (int j=0; j< w.getWord().length(); j++) {
 					if (v.getWord().charAt(j) != w.getWord().charAt(j)) {
@@ -115,6 +116,7 @@ public class Term implements Comparable<Term> {
 					return v.getWord().charAt(k)- w.getWord().charAt(k);
 				}
 			}
+			//else statement essentially
 			return 0;
 		}
 	
@@ -140,11 +142,9 @@ public class Term implements Comparable<Term> {
 			if (v.getWeight() == w.getWeight()) {
 				return 0;
 			}
-			if (v.getWeight() > w.getWeight()) {
+			else {
 				return -1;
 			}
-			//return statement that should never run
-			return 0;
 		}
 	}
 
@@ -170,11 +170,9 @@ public class Term implements Comparable<Term> {
 			if (v.getWeight() == w.getWeight()) {
 				return 0;
 			}
-			if (v.getWeight() > w.getWeight()) {
+			else{
 				return 1;
 			}
-			//return statement that should never run
-			return 0;
 		}
 	}
 }
