@@ -35,8 +35,25 @@ public class BinarySearchLibrary {
 		int low = -1;
 		int high = list.size()-1;
 		// (low,high] contains target
-		// TODO: complete method
+		// DONE: complete method
+		if(list.size()==0) {
+		return -1;	
+		}
+		while (low+1 != high) {
+			int middle = (high + low)/2;
+			T valMiddle= list.get(middle);
+			int compareTarg= comp.compare(valMiddle, target);
+			if (compareTarg<0) {
+				low=middle;
+				}
+			else {
+				high=middle;
+			}
+		}
 		
+		if (comp.compare(list.get(high), target)==0) {
+			return high;
+		}
 		return -1;
 	}
 
@@ -60,7 +77,25 @@ public class BinarySearchLibrary {
 		int high = list.size();
 		
 		// target in [low,high)
-		// TODO: complete method
+		// DONE: complete method
+		if(list.size()==0) {
+		return -1;	
+		}
+		while (low+1 != high) {
+			int middle = (high + low)/2;
+			T valMiddle= list.get(middle);
+			int compareTarg= comp.compare(valMiddle, target);
+			if (compareTarg>0) {
+				high=middle;
+				}
+			else {
+				low=middle;
+			}
+		}
+		
+		if (comp.compare(list.get(high), target)==0) {
+			return low;
+		}
 		return -1;
 	}
 	
