@@ -27,10 +27,11 @@ public class Term implements Comparable<Term> {
 	 *             if weight is negative
 	 */
 	public Term(String word, double weight) {
-		// TODO: Complete Term constructor
-		
+		// DONE: Complete Term constructor
 		myWord = word;
 		myWeight = weight;
+		if (word.equals(null)) throw new NullPointerException ("world is null");
+		if (weight<0) throw new IllegalArgumentException("weight is negative");
 	}
 	
 	/**
@@ -85,8 +86,35 @@ public class Term implements Comparable<Term> {
 		 *            - Two Terms whose words are being compared
 		 */
 		public int compare(Term v, Term w) {
-			// TODO: Implement compare
+			// DONE: Implement compare, reminder:comparing v and w
 			
+			if(v.getWord().length() < myPrefixSize) {
+				for(int i=0; i< v.getWord().length(); i++) {
+					if (v.getWord().charAt(i) != w.getWord().charAt(i)) {
+						return v.getWord().charAt(i) - w.getWord().charAt(i);
+					}
+				}
+				return -1;
+			}
+			
+			//both words less than prefix size
+			if (v.getWord().length() < myPrefixSize && w.getWord().length() < myPrefixSize) {
+				//return 0 if v==w
+				if(v.equals(w)) return 0;
+			}
+			if (w.getWord().length() < myPrefixSize) {
+				for (int j=0; j< w.getWord().length(); j++) {
+					if (v.getWord().charAt(j) != w.getWord().charAt(j)) {
+						return v.getWord().charAt(j) - w.getWord().charAt(j);
+					}
+				}	
+				return 1;
+			}
+			for(int k=0; k< myPrefixSize; k++) {
+				if (v.getWord().charAt(k) != w.getWord().charAt(k)) {
+					return v.getWord().charAt(k)- w.getWord().charAt(k);
+				}
+			}
 			return 0;
 		}
 	
@@ -100,8 +128,22 @@ public class Term implements Comparable<Term> {
 	 */
 	public static class ReverseWeightOrder implements Comparator<Term> {
 		public int compare(Term v, Term w) {
-			// TODO: implement compare
-			
+			// DONE: implement compare, look at weights in descending order
+			/**
+			 * if <, return 1
+			 * if ==, return 0
+			 * if > return -1
+			 */
+			if (v.getWeight() < w.getWeight()) {
+				return 1;
+			}
+			if (v.getWeight() == w.getWeight()) {
+				return 0;
+			}
+			if (v.getWeight() > w.getWeight()) {
+				return -1;
+			}
+			//return statement that should never run
 			return 0;
 		}
 	}
@@ -114,8 +156,24 @@ public class Term implements Comparable<Term> {
 	 */
 	public static class WeightOrder implements Comparator<Term> {
 		public int compare(Term v, Term w) {
-			// TODO: implement compare
+			// DONE: implement compare
+			/**
+			 * same idea as above, but in ascending order
+			 * if <, return -1
+			 * if ==, return 0
+			 * if > return 1
+			 */
 			
+			if (v.getWeight() < w.getWeight()) {
+				return -1;
+			}
+			if (v.getWeight() == w.getWeight()) {
+				return 0;
+			}
+			if (v.getWeight() > w.getWeight()) {
+				return 1;
+			}
+			//return statement that should never run
 			return 0;
 		}
 	}
